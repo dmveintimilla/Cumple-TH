@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="1000">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video en Loop</title>
+</head>
+<body>
+    <video id="videoElement" width="100%" autoplay muted>
+        <source id="videoSource" src="/marie.mp4" type="video/mp4">
+        Tu navegador no soporta la reproducción de video.
+    </video>
+
+    <script>
+        // Lista de videos que quieres reproducir en secuencia
+        const videos = ["/marie.mp4"];
+        let currentVideoIndex = 0;
+
+        const videoElement = document.getElementById('videoElement');
+        const videoSource = document.getElementById('videoSource');
+
+        // Función para cargar el siguiente video
+        function playNextVideo() {
+            currentVideoIndex = (currentVideoIndex + 1) % videos.length;
+            videoSource.src = videos[currentVideoIndex];
+            videoElement.load();
+            videoElement.play();
+        }
+
+        // Cuando el video termina, se llama a esta función para cargar el siguiente
+        videoElement.addEventListener('ended', playNextVideo);
+
+        // Configuración inicial del primer video
+        videoElement.loop = false; // Desactivar el loop por defecto
+    </script>
+</body>
+</html>
